@@ -75,5 +75,11 @@ Flight Deals Finder is a web application that helps users find the best flight d
 - For development, you can use mock data if API credentials are not set.
 
 
-  ![Paris](images/paris.jpg)
+  ![1](static/images/f1.PNG)
+  
+  ![2](static/images/f2.PNG)
+  
+  ![3](static/images/f3.PNG)
+  
+  ![4](static/images/f4.PNG)
 **Developed with Flask**
