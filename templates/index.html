@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Deals Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</head>
+<body>
+    <div class="flight-bg">
+        <lord-icon
+            src="https://cdn.lordicon.com/tdrtiskw.json"
+            trigger="loop"
+            colors="primary:#ffffff,secondary:#4facfe"
+            style="width:520px;height:520px;">
+        </lord-icon>
+    </div>
+    <div class="container">
+        <header>
+            <h1>✈️ Flight Deals Finder</h1>
+            <p>Find the best flight deals for your next adventure!</p>
+        </header>
+        <main>
+            <div class="progress-bar" id="progress-bar">
+                <div class="step" id="step-1">1. Origin</div>
+                <div class="step" id="step-2">2. Destination</div>
+                <div class="step" id="step-3">3. Dates</div>
+                <div class="step" id="step-4">4. Result</div>
+            </div>
+            <form id="flight-search-form">
+                <div class="form-step" id="form-step-1">
+                    <div class="form-group">
+                        <label for="origin_city_code">Origin City Code:</label>
+                        <input type="text" id="origin_city_code" name="origin_city_code" placeholder="e.g., LON" required>
+                    </div>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+                <div class="form-step" id="form-step-2" style="display:none;">
+                    <div class="form-group">
+                        <label for="destination_city">Destination City:</label>
+                        <input type="text" id="destination_city" name="destination_city" placeholder="e.g., Paris" required>
+                    </div>
+                    <button type="button" class="prev-btn">Back</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+                <div class="form-step" id="form-step-3" style="display:none;">
+                    <div class="form-group">
+                        <label for="from_time">From Date:</label>
+                        <input type="date" id="from_time" name="from_time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="to_time">To Date:</label>
+                        <input type="date" id="to_time" name="to_time" required>
+                    </div>
+                    <button type="button" class="prev-btn">Back</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+                <div class="form-step" id="form-step-4" style="display:none;">
+                    <button type="button" class="prev-btn">Back</button>
+                    <button type="submit">Search Flights</button>
+                </div>
+            </form>
+            <div id="loader" class="loader">
+                <div class="bounce"></div>
+                <div class="bounce"></div>
+                <div class="bounce"></div>
+            </div>
+            <div id="success-popup" class="success-popup">
+                <span>✅ Success! Flight found.</span>
+            </div>
+            <div id="error-message" style="color: red; margin-top: 10px;"></div>
+            <div id="results"></div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

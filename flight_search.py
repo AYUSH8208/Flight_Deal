@@ -1,23 +1,24 @@
 import requests
 from flight_data import FlightData
-from dotenv import  load_dotenv
-import  os
-load_dotenv()
+import os
 
 class FlightSearch:
+    def __init__(self):
+        self.kiwi_api_key = os.getenv('KIWI_API_KEY')
+        self.kiwi_location_endpoint = os.getenv('KIWI_LOCATION_ENDPOINT')
+        self.kiwi_search_endpoint = os.getenv('KIWI_SEARCH_ENDPOINT')
 
-
-    def get_destination_code(self,city_name):
-        location_endpoint = f"{os.getenv('TEQUILA_ENDPOINT')}/locations/query"
-        headers = {"apikey": os.getenv('TEQUILA_API_KEY')}
+    def get_destination_code(self, city_name):
+        location_endpoint = f"{self.kiwi_location_endpoint}/locations/query"
+        headers = {"apikey": self.kiwi_api_key}
         query = {"term": city_name, "location_types": "city"}
         response = requests.get(url=location_endpoint, headers=headers, params=query)
         results = response.json()["locations"]
         code = results[0]["code"]
-        # print(c)
         return code
-    def flight_search(elf, origin_city_code, destination_city_code, from_time, to_time):
-        headers = {"apikey": os.getenv('TEQUILA_API_KEY')}
+
+    def flight_search(self, origin_city_code, destination_city_code, from_time, to_time):
+        headers = {"apikey": self.kiwi_api_key}
         query = {
             "fly_from": origin_city_code,
             "fly_to": destination_city_code,
@@ -29,14 +30,11 @@ class FlightSearch:
             "max_stopovers": 0,
             "curr": "GBP"
         }
-
         response = requests.get(
-            url=f"{os.getenv('TEQUILA_API_KEY')}/v2/search",
+            url=f"{self.kiwi_search_endpoint}/v2/search",
             headers=headers,
             params=query,
         )
-
-
         try:
             data = response.json()["data"][0]
         except IndexError:
