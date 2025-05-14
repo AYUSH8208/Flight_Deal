@@ -4,15 +4,16 @@ import os
 
 class FlightSearch:
     def __init__(self):
+        # API keys are loaded from environment variables, not hardcoded.
         self.kiwi_api_key = os.getenv('KIWI_API_KEY')
-        self.kiwi_location_endpoint = os.getenv('KIWI_LOCATION_ENDPOINT')
-        self.kiwi_search_endpoint = os.getenv('KIWI_SEARCH_ENDPOINT')
+        self.kiwi_location_url = os.getenv('KIWI_LOCATION_URL')
+        self.kiwi_search_url = os.getenv('KIWI_SEARCH_URL')
 
     def get_destination_code(self, city_name):
-        location_endpoint = f"{self.kiwi_location_endpoint}/locations/query"
+        location_url = f"{self.kiwi_location_url}/locations/query"
         headers = {"apikey": self.kiwi_api_key}
         query = {"term": city_name, "location_types": "city"}
-        response = requests.get(url=location_endpoint, headers=headers, params=query)
+        response = requests.get(url=location_url, headers=headers, params=query)
         results = response.json()["locations"]
         code = results[0]["code"]
         return code
@@ -31,7 +32,7 @@ class FlightSearch:
             "curr": "GBP"
         }
         response = requests.get(
-            url=f"{self.kiwi_search_endpoint}/v2/search",
+            url=f"{self.kiwi_search_url}/v2/search",
             headers=headers,
             params=query,
         )

@@ -9,8 +9,9 @@ from pprint import pprint
 class DataManager:
     def __init__(self):
         self.destination_data = []
+        # Secret keys are loaded from environment variables, not hardcoded.
         self.sheety_api_key = os.getenv('SHEETY_API_KEY')
-        self.sheety_endpoint = os.getenv('SHEETY_ENDPOINT')
+        self.sheety_prices_url = os.getenv('SHEETY_PRICES_URL')
 
     def get_destination(self):
         try:
@@ -18,7 +19,7 @@ class DataManager:
                 "Authorization": f"Bearer {self.sheety_api_key}"
             }
             response = requests.get(
-                self.sheety_endpoint,
+                self.sheety_prices_url,
                 headers=headers
             )
             response.raise_for_status()
@@ -45,7 +46,7 @@ class DataManager:
                 }
             }
             response = requests.put(
-                url=f"{self.sheety_endpoint}/{city['id']}",
+                url=f"{self.sheety_prices_url}/{city['id']}",
                 json=new_data,
                 headers={"Authorization": f"Bearer {self.sheety_api_key}"}
             )

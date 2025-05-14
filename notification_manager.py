@@ -3,6 +3,7 @@ import os
 
 class NotificationManager:
     def __init__(self):
+        # Twilio credentials are loaded from environment variables, not hardcoded.
         account_sid = os.getenv('TWILIO_ACCOUNT_SID')
         auth_token = os.getenv('TWILIO_AUTH_TOKEN')
         self.from_number = os.getenv('TWILIO_FROM_NUMBER')
