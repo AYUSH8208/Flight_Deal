@@ -81,5 +81,5 @@ Flight Deals Finder is a web application that helps users find the best flight d
   
   ![3](static/images/f3.PNG)
   
-  ![4](static/images/f4.PNG)
+  ![4](static/images/f5.PNG)
 **Developed with Flask**
