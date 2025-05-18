@@ -70,15 +70,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(() => {
                     loader.style.display = 'none';
-                    // Show dummy data and success popup
+                    // Show dummy data and success popup with realistic date gap
+                    const fromDate = form.elements['from_time'].value;
+                    let out_date = fromDate;
+                    let return_date = '';
+                    if (fromDate) {
+                        const minGap = 3;
+                        const maxGap = 10;
+                        const dep = new Date(fromDate);
+                        const gap = Math.floor(Math.random() * (maxGap - minGap + 1)) + minGap;
+                        const ret = new Date(dep);
+                        ret.setDate(dep.getDate() + gap);
+                        // Format as YYYY-MM-DD
+                        const pad = n => n < 10 ? '0' + n : n;
+                        return_date = `${ret.getFullYear()}-${pad(ret.getMonth() + 1)}-${pad(ret.getDate())}`;
+                    } else {
+                        out_date = '2024-07-01';
+                        return_date = '2024-07-10';
+                    }
                     showSuccessAndResults({
                         price: 199,
                         origin_city: 'London',
                         origin_airport: 'LHR',
                         destination_city: 'Paris',
                         destination_airport: 'CDG',
-                        out_date: '2024-07-01',
-                        return_date: '2024-07-10'
+                        out_date: out_date,
+                        return_date: return_date
                     });
                 });
         }, 5000);
